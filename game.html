@@ -1,0 +1,175 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Games</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="js/util.js"></script>
+  <script defer src="js/site.js"></script>
+
+  <script defer src="js/game-quiz.js"></script>
+  <script defer src="js/game-memory.js"></script>
+  <script defer src="js/game-cloze.js"></script>
+  <script defer src="js/game-shoot.js"></script>
+</head>
+<body>
+
+  <nav class="sidebar" aria-label="Primary">
+    <div class="sidebar__brand">
+      <button class="sidebar__toggle" aria-label="Toggle sidebar" title="Toggle sidebar">☰</button>
+    </div>
+    <ul class="sidebar__menu">
+      <li><a href="index.html" class="sidebar__btn" data-label="Home" aria-label="Home"><span class="icon">🏠</span><span class="label">Home</span></a></li>
+      <li><a href="game.html" class="sidebar__btn" data-label="Game" aria-label="Game"><span class="icon">🎮</span><span class="label">Game</span></a></li>
+      <li><a href="puzzle.html" class="sidebar__btn" data-label="Puzzle" aria-label="Puzzle"><span class="icon">🧩</span><span class="label">Puzzle</span></a></li>
+      <li><a href="leaderboard.html" class="sidebar__btn" data-label="Leaderboard" aria-label="Leaderboard"><span class="icon">🏆</span><span class="label">Leaderboard</span></a></li>
+      <li><a href="interests.html" class="sidebar__btn" data-label="My interests" aria-label="My interests"><span class="icon">❤️</span><span class="label">My interests</span></a></li>
+      <li><a href="contact.html" class="sidebar__btn" data-label="Contact" aria-label="Contact"><span class="icon">✉️</span><span class="label">Contact</span></a></li>
+    </ul>
+    <div class="sidebar__bottom">
+      <button id="themeToggle" class="sidebar__btn" data-label="Dark mode" aria-label="Toggle dark/light"><span class="icon">🌙</span><span class="label">Theme</span></button>
+      <button id="soundToggle" class="sidebar__btn" data-label="Sound" aria-label="Toggle sound"><span class="icon">🔊</span><span class="label">Sound</span></button>
+    </div>
+  </nav>
+
+<main class="main">
+  <div class="container">
+    
+    <div class="top-tabs" role="tablist" aria-label="Select game">
+      <button class="seg-btn" data-target="panel-quiz" aria-selected="false">📝 Quiz</button>
+      <button class="seg-btn" data-target="panel-memory" aria-selected="false">🧠 Memory</button>
+      <button class="seg-btn" data-target="panel-cloze" aria-selected="false">✍️ Fill in</button>
+      <button class="seg-btn" data-target="panel-shoot" aria-selected="false">👾 Shoot </button>
+    </div>
+    
+    <section id="panel-quiz" class="top-panel card" role="tabpanel">
+      <h1>Quiz</h1>
+      <div class="hud">
+        <span class="pill"><span class="label">Time</span> <strong id="quizTime">00:00</strong></span>
+        <span class="pill"><span class="label">Correct</span> <strong id="quizCorrect">0</strong></span>
+        <span class="pill"><span class="label">Score</span> <strong id="quizScore">0</strong></span>
+        <span class="pill"><span class="label">Highscore</span> <strong id="quizHigh">0</strong></span>
+      </div>
+      <div class="controls">
+        <label>Category <select id="quizCat"></select></label>
+        <label>Subcategory <select id="quizSub"></select></label>
+        <button id="quizPreview" class="btn">Preview</button>
+        <button id="quizStart" class="btn btn-primary">Start Quiz</button>
+      </div>
+      <div id="quizWrap"></div>
+    </section>
+    
+    <section id="panel-memory" class="top-panel card" role="tabpanel">
+      <h1>Memory</h1>
+      <div class="hud">
+        <span class="pill"><span class="label">Time</span> <strong id="memTime">00:00</strong></span>
+        <span class="pill"><span class="label">Matches</span> <strong id="memCorrect">0</strong></span>
+        <span class="pill"><span class="label">Score</span> <strong id="memScore">0</strong></span>
+        <span class="pill"><span class="label">Highscore</span> <strong id="memHigh">0</strong></span>
+      </div>
+      <div class="controls">
+        <label>Mode
+          <select id="memMode">
+            <option value="closed">All cards start closed</option>
+            <option value="preview">All cards open for 10s</option>
+            <option value="open">All cards stay open</option>
+          </select>
+        </label>
+        <label>Category <select id="memCat"></select></label>
+        <label>Subcategory <select id="memSub"></select></label>
+        <button id="memPreview" class="btn">Preview</button>
+        <button id="memStart" class="btn btn-primary">Start Memory</button>
+      </div>
+      <div id="memGrid" class="memory-grid"></div>
+    </section>
+
+    <section id="panel-cloze" class="top-panel card" role="tabpanel">
+      <h1>Fill in the Missing Words</h1>
+      <div class="hud">
+        <span class="pill"><span class="label">Time</span> <strong id="clozeTime">00:00</strong></span>
+        <span class="pill"><span class="label">Correct</span> <strong id="clozeCorrect">0</strong></span>
+        <span class="pill"><span class="label">Score</span> <strong id="clozeScore">0</strong></span>
+        <span class="pill"><span class="label">Highscore</span> <strong id="clozeHigh">0</strong></span>
+      </div>
+      <div class="controls">
+        <label>Category <select id="clozeCat"></select></label>
+        <label>Subcategory <select id="clozeSub"></select></label>
+        <button id="clozePreview" class="btn">Preview</button>
+        <button id="clozeStart" class="btn btn-primary">Start</button>
+      </div>
+      <div id="clozeWrap"></div>
+    </section>
+    
+    <section id="panel-shoot" class="top-panel card" role="tabpanel">
+      <h1>Shoot</h1>
+    
+      <div class="hud">
+        <span class="pill"><span class="label">Time</span> <strong id="shootTime">00:00</strong></span>
+        <span class="pill"><span class="label">Correct</span> <strong id="shootCorrect">0</strong></span>
+        <span class="pill"><span class="label">Score</span> <strong id="shootScore">0</strong></span>
+        <span class="pill"><span class="label">Highscore</span> <strong id="shootHigh">0</strong></span>
+      </div>
+    
+      <div class="controls">
+        <label>Mode
+          <select id="shootMode">
+            <option value="letter-rounds">Letter (10 words)</option>
+            <option value="word">Word</option>
+          </select>
+        </label>
+        <label>Category <select id="shootCat"></select></label>
+        <label>Subcategory <select id="shootSub"></select></label>
+        <button id="shootPreview" class="btn">Preview</button>
+        <button id="shootStart" class="btn btn-primary">Start</button>
+
+        <label style="display:inline-flex; align-items:center; gap:6px;">
+          <span>Hint language:</span>
+          <select id="shootHintLang">
+            <option value="en-US">English</option>
+            <option value="de-DE">German</option>
+            <option value="fr-FR">French</option>
+            <option value="es-ES">Spanish</option>
+            <option value="nl-NL">Dutch</option>
+          </select>
+        </label>
+        
+        <button id="shootHintSpeakBtn" class="btn small">🔊</button>
+        
+      </div>
+    
+      <div class="target-row" style="margin:.5rem 0">
+        <span class="label">Hint:</span>
+        <span id="shootHint" class="small"></span>
+        <span id="shootRound" class="small" style="margin-left:8px; opacity:.7"></span>
+      </div>
+    
+      <div class="target-row" style="margin:.25rem 0">
+        <span class="label">Progress:</span>
+        <span id="shootTarget"></span>
+      </div>
+    
+      <div id="shootStage" class="shoot-stage" tabindex="0" aria-label="Game area">
+        <div id="shootPlayer" class="shoot-player" aria-label="Player" role="img" aria-roledescription="Boy"></div>
+      </div>
+    
+      <div class="controls-row mobile-only" style="margin-top:8px;">
+        <button id="shootLeft" class="btn" aria-label="Move left">◀</button>
+        <button id="shootFire" class="btn btn-primary" aria-label="Shoot">⎵</button>
+        <button id="shootRight" class="btn" aria-label="Move right">▶</button>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+  const segBtns = Array.from(document.querySelectorAll('.top-tabs .seg-btn'));
+  const panels = Array.from(document.querySelectorAll('.top-panel'));
+  function activate(id){ panels.forEach(p=>p.classList.toggle('active', p.id===id)); segBtns.forEach(b=>b.setAttribute('aria-selected','false')); const btn = segBtns.find(b=>b.dataset.target===id); if(btn) btn.setAttribute('aria-selected','true'); }
+  segBtns.forEach(b=> b.addEventListener('click', ()=> activate(b.dataset.target)));
+  activate('panel-quiz');
+  document.querySelectorAll('.sidebar__btn[href$="game.html"]').forEach(el => el.setAttribute('aria-current','page'));
+</script>
+</body>
+</html>

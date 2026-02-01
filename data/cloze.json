@@ -1,0 +1,28 @@
+{
+  "Formidable": {
+    "Marche 15_1": [
+      { "s": "ik heb zin in om te eten:<br> j'ai_____ ", "a": "envie de manger" },
+      { "s": "ik ontvang vijf euro per maand:<br> je _____cinq euros par mois ", "a": "recois" },
+      { "s": "ik herinner me mijn verjaardag:<br> Je _____ mon anniversaire", "a": "me souviens de" },
+      { "s": "morgen zal ik thuis zijn :<br> Demain, _____ à la maison ", "a": "je serai" },
+      { "s": "ik zal mijn huiswerk af hebben voor het avondeten :<br> _____ fini mes devoirs avant le diner ", "a": "j'aurai" },
+      { "s": "ik zal alles voor je doen :<br> _____ tout pour toi", "a": "je ferai" },
+      { "s": "bedankt voor de moeite :<br> Merci pour _____ ", "a": "l'effort" },
+      { "s": "eerst gaan we de woorden lezen :<br> _____, mous allons lire les mots ", "a": "d'abord" },
+      { "s": "vervolgens gaan we de woorden schrijven :<br> _____, nous allons écrire les mots ", "a": "ensuite" },
+      { "s": "tenslotte gaan we de woorden leren :<br> _____, nous allons appendre les mots ", "a": "finalement" }
+    ],
+   "Marche 15_2": [
+      { "s": "het doet me plezier:<br> ça _____ ", "a": "me fait plaisir" },
+      { "s": "buiten dienst :<br> _____ ", "a": "hors service" },
+      { "s": "het wachtwoord :<br>_____ ", "a": "le mot de passe" },
+      { "s": "afspraak om 20:00 :<br> _____ à 20h00 ", "a": "rendez-vous" },
+      { "s": "dit bericht is erg belangrijk :<br> ce message _____ ", "a": "est tres important" },
+      { "s": "deze leraar is aardig :<br> ce _____ ", "a": "prof est gentil" },
+      { "s": "een perfecte score :<br> _____ ", "a": "un score parfait" },
+      { "s": "de weg naar de zon :<br> _____ ", "a": "la route du soleil" },
+      { "s": "goedenavond, heeft u gereserveerd :<br>_____ une réservation", "a": "bonsoir, vous avez" },
+      { "s": "eerst gaan we de woorden lezen :<br> _____ ", "a": "d'abord, nous allons lire les mots" }
+    ]
+  }
+}

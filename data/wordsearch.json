@@ -1,0 +1,44 @@
+{
+  "Animals": [
+    "CAT",
+    "DOG",
+    "COW",
+    "HORSE",
+    "BIRD",
+    "SHEEP",
+    "GOAT",
+    "MOUSE",
+    "LION",
+    "TIGER"
+  ],
+  "Fruits": [
+    "APPLE",
+    "BANANA",
+    "ORANGE",
+    "GRAPE",
+    "MANGO",
+    "PEACH",
+    "PEAR",
+    "PLUM"
+  ],
+  "Countries": [
+    "SPAIN",
+    "FRANCE",
+    "CHINA",
+    "JAPAN",
+    "INDIA",
+    "ITALY",
+    "NORWAY",
+    "CHILE"
+  ],
+  "Colors": [
+    "RED",
+    "BLUE",
+    "GREEN",
+    "YELLOW",
+    "PURPLE",
+    "ORANGE",
+    "BLACK",
+    "WHITE"
+  ]
+}

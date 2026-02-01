@@ -1,0 +1,31 @@
+{
+  "French writingbeginner": {
+   "Greetings": [
+     { "q" : "Translate to English: 'Bonne journée'", "choices": ["Goodbye", "Have a good day", "Welcome", "Good evening"], "a": 1 },
+     { "q" : "Translate to English: 'À bientôt'", "choices": ["Good night", "See you soon", "And you?", "Until next time"], "a": 1 },
+     { "q" : "Translate to English: 'À tout à l’heure'", "choices": ["See you in a bit (if meeting later the same day)", "Hi/Bye (casual)", "I’m doing well, thank you.", "Delighted to meet you"], "a": 0 },
+     { "q" : "Translate to English: 'Au revoir'", "choices": ["Hello/Good day", " See you tomorrow", "Goodbye", "How are you?"], "a": 2 },
+     { "q" : "Translate to English: 'Ça va bien, merci'", "choices": ["Have a good day", " See you tomorrow", "I’m doing well, thank you", "How are you?"], "a": 2 },
+     { "q" : "Translate to English: 'À demain'", "choices": ["Until next time", "Have a good evening", "See you tomorrow", "Not bad"], "a": 2 },
+     { "q" : "Translate to English: 'Bienvenue'", "choices": ["I’m doing well, thank you", "Welcome (as in, welcome to this place)", "See you in a bit (if meeting later the same day)", "See you soon"], "a": 1 },
+     { "q" : "Translate to English: 'À la prochaine'", "choices": ["Delighted to meet you", "Until next time", "Not bad", "See you soon"], "a": 1 },
+     { "q" : "Translate to English: 'Enchanté(e)'", "choices": ["Hello/Good day", "See you tomorrow", "Delighted to meet you", "No worries"], "a": 2},
+     { "q" : "Translate to English: 'Pas mal'", "choices": ["I don’t know", " See you tomorrow", "Not bad", "No problem"], "a": 2 },
+     { "q" : "Translate to English: 'Comment allez-vous?'", "choices": ["How much?/How many?", "Can you help me?", "How are you? (formal/plural)", "What is it?"], "a": 2},
+     { "q" : "Translate to English: 'À plus tard'", "choices": ["I’m doing well, thank you", "See you later", "Delighted to meet you", "Good evening"], "a": 1},
+     { "q" : "Translate to English: 'Bonne soirée'", "choices": ["Have a good evening", "Until next time", "Hello/Good day", "See you soon"], "a": 0}
+   ],
+   "Expressions": [
+     { "q": "S’il vous plaît", "choices": ["Thank you", "Please (formal)", "You’re welcome (casual)", "Excuse me (to get attention)"], "a": 1 },
+     { "q": "De rien (duh ree-ahn)", "choices": ["Don’t mention it/It’s nothing", "You’re welcome (casual)", "Gladly/Willingly", "Bless you! (informal)"], "a": 1},
+     { "q": "Avec plaisir", "choices": ["Thank you", "Please (formal)", "With pleasure", "Cheers!"], "a": 2},
+     { "q": "Bon appétit!", "choices": ["Enjoy your meal!", "Please (formal)", "You’re welcome (casual)", "Excuse me (to get attention)"], "a": 0},
+     { "q": "À vos souhaits!", "choices": ["Don’t mention it/It’s nothing", "You’re welcome (casual)", "Gladly/Willingly", "Bless you! (after a sneeze, formal)"], "a": 3},
+     { "q": "Merci beaucoup", "choices": ["Thank you", "Please (formal)", "Thank you very much", "Cheers!"], "a": 2},
+     { "q": "Santé!", "choices": ["Don’t mention it/It’s nothing", "You’re welcome (casual)", "Gladly/Willingly", "Cheers! (to your health)"], "a": 3},
+     { "q": "Je suis désolé(e)", "choices": ["It’s not a big deal/No problem", "I am sorry (for a mistake/bad news)", "Bless you! (informal)", "Excuse me (to get attention)"], "a": 1},
+     { "q": "Ce n’est pas grave", "choices": ["Pardon me/Sorry (for bumping into someone)", "It’s not a big deal/No problem", "Gladly/Willingly", "Bless you! (informal)"], "a": 1},
+     { "q": "Il n’y a pas de quoi", "choices": ["I am sorry (for a mistake/bad news)", "Pardon me/Sorry (for bumping into someone)", "Don’t mention it/It’s nothing", "With pleasure"], "a": 2 }
+  ]
+ }
+}

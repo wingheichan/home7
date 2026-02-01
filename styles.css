@@ -1,0 +1,424 @@
+
+/* Base theme */
+:root { --sidebar-width: 72px; --radius: 12px; --transition-fast: 180ms ease; --transition-slow: 280ms cubic-bezier(.2,.6,.2,1); --bg: #f7f7f9; --card: #fff; --text: #1a1a1a; --muted: #666; --accent: #2d6cdf; --accent-contrast: #fff; --border: #e5e7eb; --shadow: 0 4px 16px rgba(0,0,0,.08); }
+:root.theme-dark { --bg: #0f1115; --card: #171a21; --text: #e5e7eb; --muted: #9aa4b2; --accent: #7aa2f7; --accent-contrast: #0f1115; --border: #242a32; --shadow: 0 6px 24px rgba(0,0,0,.4); }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; font: 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif; color: var(--text); background: var(--bg); }
+
+/* Fixed left sidebar */
+.sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: var(--sidebar-width); background: var(--card); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 12px 8px; gap: 8px; box-shadow: var(--shadow); z-index: 1000; transition: width var(--transition-slow); }
+.sidebar__brand { width: 100%; display: flex; align-items: center; justify-content: center; }
+.sidebar__toggle { width: 100%; border: none; background: transparent; color: var(--muted); padding: 8px 6px; border-radius: 8px; cursor: pointer; }
+.sidebar__menu { list-style: none; padding: 0; margin: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
+.sidebar__bottom { margin-top: auto; width: 100%; }
+.sidebar__btn { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 48px; border-radius: 12px; color: var(--text); text-decoration: none; background: transparent; border: none; cursor: pointer; }
+/* FORCE centering when collapsed */
+.sidebar:not(.sidebar--expanded) .sidebar__btn { justify-content: center !important; padding-left: 0 !important; }
+.sidebar__btn:hover { background: color-mix(in oklab, var(--card), var(--accent) 12%); }
+.sidebar__btn[aria-current="page"] { background: color-mix(in oklab, var(--card), var(--accent) 22%); color: var(--accent); }
+.icon { font-size: 22px; line-height: 1; }
+.label { opacity: 0; white-space: nowrap; transform: translateX(-8px); transition: opacity var(--transition-fast), transform var(--transition-fast); pointer-events: none; }
+
+/* Tooltip when collapsed */
+.sidebar:not(.sidebar--expanded) .sidebar__btn::after { content: attr(data-label); position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%) translateX(-4px); background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 6px 10px; border-radius: 10px; box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity var(--transition-fast), transform var(--transition-fast); }
+.sidebar:not(.sidebar--expanded) .sidebar__btn:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+/* Expanded */
+.sidebar.sidebar--expanded { width: 220px; }
+.sidebar.sidebar--expanded .label { opacity: 1; transform: translateX(0); pointer-events: auto; }
+.sidebar.sidebar--expanded .sidebar__btn { justify-content: flex-start; padding-left: 12px; }
+
+/* Main */
+.main { margin-left: var(--sidebar-width); padding: 24px; }
+.sidebar.sidebar--expanded ~ .main { margin-left: 220px; transition: margin-left var(--transition-slow); }
+.container { max-width: 980px; margin: 0 auto; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+
+/* Top segmented tabs */
+.top-tabs { display:flex; gap:8px; margin-bottom: 14px; flex-wrap: wrap; }
+.top-tabs .seg-btn { border:1px solid var(--border); background: var(--card); padding:8px 12px; border-radius: 999px; cursor:pointer; }
+.top-tabs .seg-btn[aria-selected="true"] { background: color-mix(in oklab, var(--card), var(--accent) 20%); color: var(--accent); }
+.top-panel { display:none; }
+.top-panel.active { display:block; }
+
+/* HUD / Controls */
+.hud { display:flex; gap:12px; align-items:center; margin: 4px 0 12px; flex-wrap: wrap; }
+.hud .pill { background: color-mix(in oklab, var(--card), var(--accent) 14%); color: var(--text); border:1px solid var(--border); border-radius: 999px; padding: 6px 12px; }
+.hud .label { opacity: .8; font-weight: 600; }
+.controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin: 8px 0 16px; }
+select, input[type="text"], button.btn { border:1px solid var(--border); background: var(--card); color: var(--text); border-radius: 10px; padding: 8px 10px; font: inherit; }
+button.btn { cursor:pointer; }
+button.btn-primary { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+button.btn-primary:hover { filter: brightness(0.95); }
+
+/* Memory grid fixed 5x4 */
+.card-tile { position:relative; height:90px; border:1px solid var(--border); border-radius:12px; background: var(--card); display:flex; align-items:center; justify-content:center; cursor:pointer; user-select:none; }
+.card-tile.revealed, .card-tile.matched { background: color-mix(in oklab, var(--card), var(--accent) 16%); }
+.card-tile.matched { outline:2px solid var(--accent); }
+
+.disabled-preview { opacity: 0.4; pointer-events: none; }
+
+/* Word Search & Sudoku */
+.ws-grid { border-collapse: collapse; }
+.ws-grid td { width:34px; height:34px; text-align:center; border:1px solid var(--border); cursor:pointer; user-select:none; font-weight:600; }
+.sudoku-grid { border-collapse: collapse; margin-top: 8px; }
+.sudoku-grid td { border:1px solid var(--border); width:36px; height:36px; text-align:center; padding:0; }
+.sudoku-grid input { width:100%; height:100%; border:none; text-align:center; background:transparent; color:var(--text); font-weight:600; }
+
+@media (max-width: 560px) { :root { --sidebar-width: 60px; } .icon { font-size: 20px; } .main { padding: 18px; } }
+
+
+/* ---------- PATCH: Sidebar collapsed ---------- */
+/* Hide labels completely when collapsed so icons center and remain visible */
+.sidebar:not(.sidebar--expanded) .label {
+  display: none !important;
+}
+
+/* Force icon buttons to center in the collapsed bar */
+.sidebar:not(.sidebar--expanded) .sidebar__btn {
+  justify-content: center !important;
+  padding-left: 0 !important;
+}
+
+/* ---------- PATCH: Dark mode buttons readable ---------- */
+/* Top segmented game/puzzle buttons */
+:root.theme-dark .top-tabs .seg-btn {
+  color: #fff !important;
+  border-color: #334155;
+  background: #0f172a;
+}
+:root.theme-dark .top-tabs .seg-btn[aria-selected="true"] {
+  background: #2563eb;
+  color: #fff !important;
+  border-color: #2563eb;
+}
+
+/* Generic buttons used across games (start/check/etc.) */
+:root.theme-dark button.btn {
+  color: #fff !important;
+  border-color: #334155;
+  background: #111827;
+}
+:root.theme-dark button.btn.btn-primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff !important;
+}
+
+/* If your template uses .tab-btn instead of .seg-btn, keep this fallback */
+:root.theme-dark .tab-btn { color: #fff !important; }
+
+/* ---------- PATCH: Memory closed tiles look closed ---------- */
+/* Closed state: make text invisible by matching it to background (no layout jump) */
+.card-tile {
+  background: var(--text);
+  color: var(--text);
+}
+
+/* Revealed/matched: restore readable contrast */
+.card-tile.revealed,
+.card-tile.matched {
+  background: var(--card);
+  color: var(--text);
+}
+
+/* uniform size for game tab buttons (also included below) */
+.top-tabs .seg-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width: 150px; height: 40px; padding: 8px 14px; }
+
+/* flip animation */
+.card-tile { transform-style: preserve-3d; transition: transform 280ms ease, background 180ms ease, color 180ms ease; }
+.card-tile:not(.revealed):not(.matched) { transform: rotateY(180deg); }
+
+
+select {
+  background-color: #6699ff;   /* Blue background */
+  color: #fff;                 /* White text */
+  border: 4px solid #1e293b;   /* Thick dark border */
+  border-radius: 8px;          /* Rounded corners */
+  padding: 6px 10px;           /* Extra padding for better feel */
+  font-weight: bold;           /* Make text stand out */
+}
+
+
+/* ===== Memory: selected card highlight ===== */
+/* High-contrast outline + subtle glow for selected tiles */
+.card-tile.selected {
+  outline: 3px solid var(--accent);     /* thick colored outline */
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent), transparent 70%),
+              0 6px 16px rgba(0, 0, 0, .15);
+  background: color-mix(in oklab, var(--card), var(--accent) 12%); /* soft tint */
+}
+
+/* Dark mode tweak: stronger tint for visibility */
+:root.theme-dark .card-tile.selected {
+  background: color-mix(in oklab, var(--card), var(--accent) 20%);
+}
+
+/* (Optional) hover affordance for clickable tiles */
+.card-tile:not(.matched):hover {
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent), transparent 80%);
+}
+
+/* Pulse animation on matched */
+@keyframes matchPulse {
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(22,163,74,.35); }
+  70%  { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(22,163,74,.0); }
+  100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(22,163,74,.0); }
+}
+
+/* Memory: matched tiles green using theme-aware mix */
+.card-tile.matched {
+  background: color-mix(in oklab, var(--card), #16a34a 22%);
+  border-color: #16a34a;
+  color: var(--text);
+  outline: 2px solid #16a34a;
+  animation: matchPulse 350ms ease-out;
+}
+
+:root.theme-dark .card-tile.matched {
+  background: color-mix(in oklab, var(--card), #16a34a 30%); /* a bit stronger in dark mode */
+  color: var(--text);
+}
+
+
+/* ===== Mobile: sidebar becomes a bottom bar ===== */
+@media (max-width: 640px) {
+  .sidebar {
+    position: fixed;
+    top: auto;
+    bottom: 0; left: 0; right: 0;
+    width: 100vw; height: 56px;
+    background: var(--card);
+    border-right: none;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: row; align-items: center;
+    padding: 6px 8px; gap: 8px;
+    overflow-x: auto; overflow-y: hidden;
+    z-index: 1000;
+  }
+  /* Hide brand/toggle and labels to save space */
+  .sidebar__brand, .sidebar__toggle { display: none !important; }
+  .sidebar .label { display: none !important; }
+
+  .sidebar__menu { display: flex; flex-direction: row; gap: 8px; width: auto; }
+  .sidebar__bottom { margin: 0; margin-left: auto; display: flex; gap: 6px; }
+
+  /* Content no longer offset by left sidebar; reserve room for bottom bar */
+  .main { margin-left: 0 !important; padding-bottom: 72px; }
+}
+
+/* ===== Memory grid: 4×4, responsive cards stay in-bounds ===== */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 10px;
+}
+
+/* Use square tiles that scale with the grid cell width */
+.card-tile {
+  aspect-ratio: 1 / 1;   /* square cards */
+  height: auto;          /* let aspect-ratio drive height */
+}
+
+/* For extra-small screens, you can tighten gaps a bit */
+@media (max-width: 380px) {
+  .memory-grid { gap: 8px; }
+}
+
+/* Place toggle buttons next to each other and hide their text labels */
+.sidebar__bottom {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+.sidebar__bottom .label {
+  display: none !important;  /* hide 'Theme' / 'Sound' text */
+}
+.sidebar__bottom .sidebar__btn {
+  width: auto;
+  height: 44px;
+}
+
+/* On mobile bottom bar keep toggles tight */
+@media (max-width: 640px) {
+  .sidebar__bottom { gap: 8px; }
+}
+
+/* ===== Quiz answers: base contrast ===== */
+.quiz .choice {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+:root.theme-dark .quiz .choice {
+  background: #111827;     /* dark slate */
+  color: #ffffff;          /* white text */
+  border-color: #334155;   /* slate border */
+}
+
+/* ===== Quiz answers: feedback colors ===== */
+.quiz .choice.correct {
+  background: #dcfce7;     /* light green */
+  border-color: #16a34a;   /* green border */
+  color: #065f46;          /* dark teal text */
+}
+
+.quiz .choice.wrong {
+  background: #fee2e2;     /* light red */
+  border-color: #dc2626;   /* red border */
+  color: #7f1d1d;          /* deep red text */
+}
+
+/* Space above the Next button row */
+.next-row { margin-top: 12px; }
+``
+
+
+/* Ensure toggle buttons visible on tablets */
+.sidebar__bottom {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.sidebar__bottom .label { display: none; } /* hide text */
+.sidebar__bottom .sidebar__btn {
+  width: auto;
+  min-width: 44px;
+  height: 44px;
+}
+@media (max-width: 1024px) {
+  .sidebar__bottom { gap: 6px; }
+}
+
+/* ===== Memory: bound grid width so cards stay small ===== */
+#panel-memory .memory-grid {
+  /* Center the grid, cap its width so tiles don't get huge */
+  max-width: 480px;       /* adjust: 400–560px depending on taste */
+  margin: 0 auto;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+#panel-memory .card-tile {
+  /* Keep tiles square and scale within grid */
+  aspect-ratio: 1 / 1;
+  height: auto;           /* aspect-ratio governs height */
+}
+
+/* Very small phones: tighten spacing further */
+@media (max-width: 380px) {
+  #panel-memory .memory-grid { max-width: 360px; gap: 8px; }
+}
+.stats-table {
+  border-collapse: collapse;      /* clean borders */
+  width: 100%;
+}
+
+.stats-table th,
+.stats-table td {
+  border: 1px solid #ccc;          /* table borders */
+  padding: 10px 20px;              /* SPACE between content */
+  text-align: left;
+}
+
+/* ===== Fixed game stage size ===== */
+.shoot-stage{
+  position: relative;
+
+  width: 540px;
+  height: 540px;
+
+  margin-inline: auto;      /* center on desktop */
+  margin-block: 0.5rem;
+
+  background: #0b1020;      /* dark space background */
+  border: 2px solid #445;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+/* Player and bullet */
+.shoot-player {
+  position: absolute;
+  bottom: 10px;
+
+  width: 48px;
+  height: 64px;
+  background-color: transparent;   /* <-- force transparency */
+  background: url('img/shoot_player.png') no-repeat center;
+  background-size: contain;
+}
+
+
+.shoot-bullet {
+  position: absolute;
+  width: 4px; height: 16px;
+  background: #ffec59;
+  border-radius: 2px;
+}
+
+
+/* ===== Alien ship ===== */
+.shoot-ship {
+  position: absolute;
+
+  width: 48px;
+  height: 48px;
+  
+  opacity: 0.9;
+  
+  background: url('img/alien2.png') no-repeat center;
+  background-size: contain;   /* ✅ keeps aspect ratio */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+
+
+/* ===== Token text on ship ===== */
+.shoot-ship .token {
+  background: none;          /* ✅ transparent */
+  padding: 0;
+
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  /* readable on any PNG */
+  text-shadow:
+    0 1px 2px rgba(0,0,0,0.9),
+    0 0 6px rgba(0,0,0,0.6);
+
+  user-select: none;
+  pointer-events: none;
+}
+
+
+.shoot-ship .token.word {
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+
+.target-token {
+  padding: 2px 6px; border-radius: 8px; margin-right: 4px;
+  background: #c8f7c5; border: 1px solid #6bbf59; color: #1b3a1b; font-weight: 600;
+}
+
+@media (min-width: 700px) { .mobile-only { display: none; } }
+

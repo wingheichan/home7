@@ -1,0 +1,43 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <title>My Interests — Wing Hei Chan</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="js/site.js"></script>
+  <script defer src="js/util.js"></script>
+
+</head>
+<body>
+
+  <nav class="sidebar" aria-label="Primary">
+    <div class="sidebar__brand">
+      <button class="sidebar__toggle" aria-label="Toggle sidebar" title="Toggle sidebar">☰</button>
+    </div>
+    <ul class="sidebar__menu">
+      <li><a href="index.html" class="sidebar__btn" data-label="Home" aria-label="Home"><span class="icon">🏠</span><span class="label">Home</span></a></li>
+      <li><a href="game.html" class="sidebar__btn" data-label="Game" aria-label="Game"><span class="icon">🎮</span><span class="label">Game</span></a></li>
+      <li><a href="puzzle.html" class="sidebar__btn" data-label="Puzzle" aria-label="Puzzle"><span class="icon">🧩</span><span class="label">Puzzle</span></a></li>
+      <li><a href="leaderboard.html" class="sidebar__btn" data-label="Leaderboard" aria-label="Leaderboard"><span class="icon">🏆</span><span class="label">Leaderboard</span></a></li>
+      <li><a href="interests.html" class="sidebar__btn" data-label="My interests" aria-label="My interests"><span class="icon">❤️</span><span class="label">My interests</span></a></li>
+      <li><a href="contact.html" class="sidebar__btn" data-label="Contact" aria-label="Contact"><span class="icon">✉️</span><span class="label">Contact</span></a></li>
+    </ul>
+    <div class="sidebar__bottom">
+      <button id="themeToggle" class="sidebar__btn" data-label="Dark mode" aria-label="Toggle dark/light"><span class="icon">🌙</span><span class="label">Theme</span></button>
+    </div>
+  </nav>
+
+<main class="main">
+  <div class="container">
+    <section class="card">
+      <h1>My Interests</h1>
+      <p>Share topics you love—coding, puzzles, languages, etc.</p>
+    </section>
+  </div>
+</main>
+<script>document.querySelectorAll('.sidebar__btn[href$="interests.html"]').forEach(el => el.setAttribute('aria-current','page'));</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+{
+  "Deutsch": {
+    "Essen_Buchstabe_1": [
+      {
+        "id": "Essen1-letter-rounds",
+        "mode": "letter-rounds",
+        "rounds": [
+          { "hint": "de koffie", "target": "der Kaffee" },
+          { "hint": "het zout", "target": "das Salz" },
+          { "hint": "de pasta", "target": "die Nudeln" },
+          { "hint": "nemen", "target": "nehmen" },
+          { "hint": "de cola", "target": "die Cola" },
+          { "hint": "het brood", "target": "das Brot" },
+          { "hint": "het glas", "target": "das Glas" },
+          { "hint": "de schnitzel", "target": "das Schnitzel" },
+          { "hint": "het water", "target": "das Wasser" },
+          { "hint": "warm", "target": "warm" }
+        ],
+        "alphabet": "abcdefghijklmnopqrstuvwxyz ",
+        "distractors": "qwxyz",
+        "speed": 1.0,
+        "rowSize": 10,          
+        "rowStep": 38,          
+        "bulletSpeed": 460
+      }
+    ],
+    "Essen_Wörter_1": [
+      {
+        "id": "Essen1-words",
+        "mode": "word",
+        "wordRounds": [
+          {
+            "hint": "Ik ontbijt elke ochtend met een broodje met kaas",
+            "sentence": "Ich frühstücke jeden Morgen ein Brötchen mit Käse",
+            "targetWords": ["Ich", "frühstücke", "jeden", "Morgen", "ein", "Brötchen", "mit", "Käse"],
+            "wordBank": ["Ich", "frühstücke", "jeden", "Morgen", "ein", "Brötchen", "mit", "Käse", "Gemüse", "oft" ]
+          },
+          {
+            "hint": "Als lunch eet ik vaak pasta met groente",
+            "sentence": "Zum Mittagessen esse ich oft Nudeln mit Gemüse",
+            "targetWords": ["Zum", "Mittagessen", "esse", "ich", "oft", "Nudeln", "mit", "Gemüse"],
+            "wordBank": ["Zum", "Mittagessen", "esse", "ich", "oft", "Nudeln", "mit", "Gemüse", "jeden", "und" ]
+          },
+          {
+            "hint": "Om te drinken neem ik een cola en een glas water.",
+            "sentence": "Zum Trinken nehme ich eine Cola und ein Glas Wasser",
+            "targetWords": ["Zum", "Trinken", "nehme", "ich", "eine", "Cola", "und", "ein", "Glas", "Wasser"],
+            "wordBank": ["Zum", "Trinken", "nehme", "ich", "eine", "Cola", "und", "ein", "Glas", "Wasser", "ein", "mit" ]
+          },
+          {
+            "hint": "Als toetje eet ik graag ijs of fruit",
+            "sentence": "Zum Nachtisch esse ich gern Eis oder Obst.",
+            "targetWords": ["Zum", "Nachtisch", "esse", "ich", "gern", "Eis", "oder", "Obst"],
+            "wordBank": ["Zum", "Nachtisch", "esse", "ich", "gern", "Eis", "oder", "Obst", "Gemüse", "Iff"]
+          },
+          {
+            "hint": "Pardon, kunt u even komen alstublieft?",
+            "sentence": "Entschuldigung, können Sie bitte kommen?",
+            "targetWords": ["Entschuldigung,", "können", "Sie", "bitte", "kommen?"],
+            "wordBank": ["Entschuldigung,", "können", "Sie", "bitte", "kommen?", "komen?", "U", "bitte?"]
+          },
+          {
+            "hint": "De menukaart, alstublieft.",
+            "sentence": "Die Speisekarte, bitte",
+            "targetWords": ["Die", "Speisekarte,", "bitte"],
+            "wordBank": ["Die", "Der", "Das", "Speisekarte,", "Menukarte,", "Essekarte", "bitte", "bitten"]
+          },
+          {
+            "hint": "We willen graag bestellen",
+            "sentence": "Wir möchten bestellen",
+            "targetWords": ["Wir", "möchten", "bestellen"],
+            "wordBank": ["Wir", "möchten", "bestellen", "Wei", "willen", "kunnen", "beistellen", "ordernen"]
+          },
+          {
+            "hint": "Zullen we samen iets gaan eten?",
+            "sentence": "Wollen wir zusammen etwas essen gehen?",
+            "targetWords": ["Wollen", "wir", "zusammen", "etwas", "essen", "gehen?" ],
+            "wordBank": ["Wollen", "wir", "zusammen", "etwas", "essen", "gehen?", "möchten", "sammen"]
+          },
+          {
+            "hint": "Wat eet jij het liefst?",
+            "sentence": "Was ist dein Lieblingsessen?",
+            "targetWords": ["Was", "ist", "dein", "Lieblingsessen?"],
+            "wordBank": ["Was", "ist", "dein", "Lieblingsessen?", "is", "dir", "liebe?", "Wasser" ]
+          },
+          {
+            "hint": "Eet jij liever vlees of vis?",
+            "sentence": "Magst du lieber Fleisch oder Fisch?",
+            "targetWords": ["Magst", "du", "lieber", "Fleisch", "oder", "Fisch?"],
+            "wordBank": ["Magst", "du", "lieber", "Fleisch", "oder", "Fisch?", "liebling", "Gemüse", "dich"]
+          }
+        ],
+        "speed": 1.0,
+        "rowSize": 8,
+        "rowStep": 38,
+        "bulletSpeed": 460
+      }
+    ]
+  }
+}
+
