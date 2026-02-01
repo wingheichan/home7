@@ -334,7 +334,7 @@ select {
   position: relative;
 
   width: 540px;
-  height: 540px;
+  height: 420px;
 
   margin-inline: auto;      /* center on desktop */
   margin-block: 0.5rem;
