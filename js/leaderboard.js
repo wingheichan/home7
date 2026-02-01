@@ -180,6 +180,7 @@
       if (typeof v.score === 'number') parts.push(`Score: ${v.score}`);
       if (typeof v.right === 'number') parts.push(`Correct: ${v.right}`);
       if (typeof v.ms === 'number')    parts.push(`Time: ${fmt(v.ms)}`);
+      if (typeof v.wrong === 'number') parts.push(`Wrong: ${v.wrong}`);
     
       const stat = parts.join(' — ') || '—';
       const dt = v.date ? new Date(v.date).toLocaleString() : '-';
