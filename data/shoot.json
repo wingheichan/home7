@@ -35,7 +35,7 @@
           },
         "speed": 1.0,
         "rowSize": 10,          
-        "rowStep": 38,          
+        "rowStep": 52,          
         "bulletSpeed": 460
       }
     ],
@@ -45,7 +45,7 @@
         "mode": "word",
         "wordRounds": [
           {
-            "hint": "Ik ontbijt elke ochtend met een broodje met kaas",
+            "hint": "Ik ontbijt elke ochtend een broodje met kaas",
             "sentence": "Ich frühstücke jeden Morgen ein Brötchen mit Käse",
             "targetWords": ["Ich", "frühstücke", "jeden", "Morgen", "ein", "Brötchen", "mit", "Käse"],
             "wordBank": ["Ich", "frühstücke", "jeden", "Morgen", "ein", "Brötchen", "mit", "Käse", "Gemüse", "oft" ]
@@ -107,7 +107,7 @@
         ],
         "speed": 1.0,
         "rowSize": 8,
-        "rowStep": 38,
+        "rowStep": 52,
         "bulletSpeed": 460
       }
     ]
