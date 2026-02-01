@@ -37,7 +37,7 @@
   
   // ---- Game state
   let running = false, rafId = 0;
-  let score = 0, correct = 0, combo = 0;
+  let score = 0, correct = 0, combo = 0, wrong = 0;
   let bullets = [];     // {x,y,v}
   let ships   = [];     // [{el,x,y,token,need}]
   let playerX = 0;
@@ -298,7 +298,7 @@
     const item = pickItem();
 
     bullets = []; ships = [];
-    score = 0; correct = 0; combo = 0;
+    score = 0; correct = 0; combo = 0, wrong = 0;
     nextIndex = 0; rowY = 40;
 
     cOut.textContent = '0'; sOut.textContent = '0';
@@ -371,6 +371,7 @@
 
       SFX.correct();
     } else {
+      wrong++;
       combo = 0;
       score = Math.max(0, score - 10);
       SFX.wrong();
@@ -473,8 +474,8 @@
     // Leaderboard entry (object) — "right" is letters/words caught correctly
     localStorage.setItem(lbKey(), JSON.stringify({ score, right: (mode === 'word'
         ? (roundIndex >= (wordRounds?.length || 0) ? wordRounds.length : roundIndex)
-        : (roundIndex >= (rounds?.length || 0) ? rounds.length : nextIndex))
-      , ms: totalMs, date: new Date().toISOString() }));
+        : (roundIndex >= (rounds?.length || 0) ? rounds.length : nextIndex)),
+      wrong, ms: totalMs, date: new Date().toISOString() }));
 
     SFX.success();
   }
