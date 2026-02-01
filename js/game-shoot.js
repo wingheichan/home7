@@ -538,14 +538,14 @@ function stopSpeaking() {
     speakText(text, lang);
   });
   
-    const text = hintEl?.textContent || '';
-    if (!text.trim()) return;
+    //const text = hintEl?.textContent || '';
+    //if (!text.trim()) return;
   
     // Load selected language from localStorage
    // const lang = localStorage.getItem('shoot:tts:lang') || 'en-US';
   
     //TTS.speak(text, lang, { rate: 1.0, pitch: 1.0 });
-  });
+  //});
   
   // Preview
   $('#shootPreview')?.addEventListener('click', () => {
