@@ -33,8 +33,7 @@
   const PLAYER_STEP_KEY = 14;     // px per left/right key press
   const PLAYER_STEP_TAP = 44;    // px per mobile tap
   const COOLDOWN_MS = 200;       // delay between shots
-  const langSelect = document.querySelector('#shootHintLang');
-  
+    
   // ---- Game state
   let running = false, rafId = 0;
   let score = 0, correct = 0, combo = 0, wrong = 0;
