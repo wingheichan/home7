@@ -160,29 +160,57 @@
     const tokens = [];
 
     if (mode === 'letter-rounds') {
-      const alphabet   = item.alphabet   || 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      const distractor = item.distractors|| '';
-      const pool = (alphabet + distractor).split('').filter(ch => ch !== need);
-      tokens.push(need);
-      while (tokens.length < rowSize && pool.length) {
-        const i = Math.floor(Math.random() * pool.length);
-        tokens.push(pool.splice(i,1)[0]);
-      }
-    } else { // word mode
+        const alphabet   = item.alphabet   || 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const distractor = item.distractors || '';
+        const needStr    = String(need);
+        const needU      = needStr.toUpperCase();
+        const needL      = needStr.toLowerCase();
+      
+        // 1) Build confusable preference set (case-insensitive)
+        const confStr = (item.confusables?.[needL] || '');
+        const conf = confStr.split('')
+          .filter(ch => ch.toUpperCase() !== needU);
+      
+        // 2) Build fallback pool from alphabet + distractors (excluding the need)
+        const fallback = (alphabet + distractor).split('')
+          .filter(ch => ch.toUpperCase() !== needU);
+      
+        // Helper to append unique tokens (case-insensitive de-dup)
+        const seen = new Set([needU]);
+        const addUnique = (arr) => {
+          for (const ch of arr) {
+            const u = ch.toUpperCase();
+            if (!seen.has(u)) {
+              tokens.push(ch);
+              seen.add(u);
+            }
+            if (tokens.length >= rowSize) break;
+          }
+        };
+      
+        // Always include the needed character first
+        tokens.push(need);
+      
+        // Prefer confusables; then fill from fallback (shuffled)
+        addUnique(conf);
+        if (tokens.length < rowSize) {
+          const fb = fallback.slice().sort(() => Math.random() - 0.5);
+          addUnique(fb);
+        }
+      } else {
+        // word mode (unchanged)
         const wr = wordRounds[roundIndex] || {};
         const bank = Array.isArray(wr.wordBank) && wr.wordBank.length
           ? wr.wordBank.slice()
           : targetTokens.slice();
-      
-        // ensure need is included then fill rest with distractors
         const idx = bank.indexOf(need);
         if (idx !== -1) bank.splice(idx, 1);
         tokens.push(need);
         while (tokens.length < rowSize && bank.length) {
           const i = Math.floor(Math.random() * bank.length);
           tokens.push(bank.splice(i, 1)[0]);
+        }
       }
-    }
 
     // shuffle tokens
     tokens.sort(() => Math.random() - 0.5);
