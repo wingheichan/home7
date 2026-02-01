@@ -60,17 +60,43 @@
 
  
   const speakToggle = document.querySelector('#shootSpeakHint');
-  if (window.TTS) {
-    // Initialize from storage
-    
-    const saved = localStorage.getItem('shoot:tts:lang') || 'en-US';
-      if (langSelect) langSelect.value = saved;
-    
-      langSelect?.addEventListener('change', () => {
-        localStorage.setItem('shoot:tts:lang', langSelect.value);
+  // --- Web Speech API language selector (no TTS wrapper needed) ---
+  const langSelect = document.querySelector('#shootHintLang');
+  if (langSelect) {
+      const saved = localStorage.getItem('shoot:tts:lang') || 'en-US';
+      langSelect.value = saved;
+  
+      langSelect.addEventListener('change', () => {
+          localStorage.setItem('shoot:tts:lang', langSelect.value);
       });
-
   }
+
+// --- Web Speech helpers (SpeechSynthesis) ---
+function canSpeak() {
+  return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+}
+
+function speakText(text, lang) {
+  if (!canSpeak()) { console.warn('SpeechSynthesis not supported'); return; }
+  const t = (text || '').trim();
+  if (!t) return;
+
+  // Cancel any previous utterances to avoid overlaps
+  window.speechSynthesis.cancel();
+
+  const u = new SpeechSynthesisUtterance(t);
+  u.lang = lang || 'en-US';
+  u.rate = 1.0;   // 0.1 .. 10
+  u.pitch = 1.0;  // 0 .. 2
+  // u.volume = 1.0; // optional
+
+  window.speechSynthesis.speak(u);
+}
+
+function stopSpeaking() {
+  if (!canSpeak()) return;
+  window.speechSynthesis.cancel();
+}
   
   function fill(sel, items) {
     sel.innerHTML = '';
@@ -265,17 +291,13 @@
     nextIndex = 0;
     rowY = 40;
     renderProgress();
-      
-    // ✅ NEW: speak the hint (choose the language you need)
-    if (window.TTS) {
-      // Example languages: 'en-US', 'en-GB', 'es-ES', 'nl-NL'
-      const lang = 'en-US'; // change if your hints are Spanish/Dutch/etc.
-      if (window.TTS) {
-      const lang = localStorage.getItem('shoot:tts:lang') || 'en-US';
-      TTS.speak(hintEl?.textContent || '', lang, { rate: 1.0, pitch: 1.0 });
-      }
-    }
 
+      // Auto-speak the hint when a new round starts
+    {
+      const lang = localStorage.getItem('shoot:tts:lang') || 'en-US';
+      speakText(hintEl?.textContent || '', lang);
+    }  
+    
   }
     
     function nextRoundOrFinish() {
@@ -293,8 +315,7 @@
   // ---- Start a session
   function start() {
     disablePreviewButtons();
-    if (window.TTS) TTS.stop();
-    
+    stopSpeaking();   
     const item = pickItem();
 
     bullets = []; ships = [];
@@ -456,7 +477,7 @@
   // ---- Finish
   function finish() {
     enablePreviewButtons();
-    if (window.TTS) TTS.stop();
+    stopSpeaking();
     
     if (!running) return;
     running = false;
@@ -512,17 +533,19 @@
 
   // --- Speak Again button ---
   const speakBtn = document.querySelector('#shootHintSpeakBtn');
-  
   speakBtn && speakBtn.addEventListener('click', () => {
-    if (!window.TTS) return;
+    const text = hintEl?.textContent || '';
+    const lang = localStorage.getItem('shoot:tts:lang') || 'en-US';
+    speakText(text, lang);
+  });
   
     const text = hintEl?.textContent || '';
     if (!text.trim()) return;
   
     // Load selected language from localStorage
-    const lang = localStorage.getItem('shoot:tts:lang') || 'en-US';
+   // const lang = localStorage.getItem('shoot:tts:lang') || 'en-US';
   
-    TTS.speak(text, lang, { rate: 1.0, pitch: 1.0 });
+    //TTS.speak(text, lang, { rate: 1.0, pitch: 1.0 });
   });
   
   // Preview
