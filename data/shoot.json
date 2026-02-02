@@ -36,7 +36,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Buchstabe_2": [
@@ -74,7 +74,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Buchstabe_3": [
@@ -112,7 +112,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Buchstabe_4": [
@@ -150,7 +150,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Buchstabe_5": [
@@ -188,7 +188,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Buchstabe_6": [
@@ -227,7 +227,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Buchstabe_7": [
@@ -266,7 +266,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Buchstabe_8": [
@@ -305,7 +305,7 @@
         "speed": 1.0,
         "rowSize": 10,          
         "rowStep": 52,          
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ],
     "Essen_Wörter_1": [
@@ -377,7 +377,7 @@
         "speed": 1.0,
         "rowSize": 8,
         "rowStep": 52,
-        "bulletSpeed": 460
+        "bulletSpeed": 600
       }
     ]
   }
