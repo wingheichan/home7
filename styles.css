@@ -354,7 +354,7 @@ select {
   width: 48px;
   height: 64px;
   background-color: transparent;   /* <-- force transparency */
-  background: url('img/shoot_player.png') no-repeat center;
+  background: url('img/shoot_player2.png') no-repeat center;
   background-size: contain;
 }
 
