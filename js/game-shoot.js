@@ -36,7 +36,7 @@
   
   // --- Custom Sound Effects ---
   const sndShoot  = new Audio('sounds/laser-shoot.mp3');
-  const sndHit    = new Audio('sounds/explosion-fx.mp3');
+  //const sndHit    = new Audio('sounds/explosion-fx.mp3');
   const sndVic    = new Audio('sounds/success-fanfare-trumpets.mp3');
   //const sndMiss   = new Audio('sounds/hit-miss.mp3');
   //const sndWrong  = new Audio('sounds/hit-wrong.mp3');  // optional if different
@@ -406,10 +406,8 @@ function stopSpeaking() {
         correct++;
         cOut.textContent = String(correct);
       }
-
       
-      sndHit.currentTime = 0;
-      sndHit.play();
+     SFX.correct();
 
     } else {
       wrong++;
