@@ -35,12 +35,13 @@
   const COOLDOWN_MS = 200;       // delay between shots
   
   // --- Custom Sound Effects ---
-  const sndShoot  = new Audio('sounds/laser-shoot.mp3');
   //const sndHit    = new Audio('sounds/explosion-fx.mp3');
   const sndVic    = new Audio('sounds/success-fanfare-trumpets.mp3');
   //const sndMiss   = new Audio('sounds/hit-miss.mp3');
   //const sndWrong  = new Audio('sounds/hit-wrong.mp3');  // optional if different
-    
+  const shootSoundURL = 'sounds/laser-shoot.mp3';
+  new Audio(shootSoundURL);
+  
   // ---- Game state
   let running = false, rafId = 0;
   let score = 0, correct = 0, combo = 0, wrong = 0;
@@ -384,8 +385,10 @@ function stopSpeaking() {
     b.style.left = `${bx}px`; b.style.top = `${by}px`;
     bullets.push({ el: b, x: bx, y: by, v: -bulletSpeed }); // upward
     
-    sndShoot.currentTime = 0;
-    sndShoot.play();
+    // guaranteed‑play shooting sound
+    const s = new Audio(shootSoundURL);
+    s.volume = 1.0;
+    s.play().catch(err => console.warn("Shoot sound blocked:", err));
 
   }
 
