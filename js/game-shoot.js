@@ -36,11 +36,11 @@
   
   // --- Custom Sound Effects ---
   //const sndHit    = new Audio('sounds/explosion-fx.mp3');
-  const sndVic    = new Audio('sounds/success-fanfare-trumpets.mp3');
+  //const sndVic    = new Audio('sounds/success-fanfare-trumpets.mp3');
   //const sndMiss   = new Audio('sounds/hit-miss.mp3');
   //const sndWrong  = new Audio('sounds/hit-wrong.mp3');  // optional if different
-  const shootSoundURL = 'sounds/laser-shoot.mp3';
-  new Audio(shootSoundURL);
+  //const shootSoundURL = 'sounds/laser-shoot.mp3';
+  //new Audio(shootSoundURL);
   
   // ---- Game state
   let running = false, rafId = 0;
@@ -385,10 +385,7 @@ function stopSpeaking() {
     b.style.left = `${bx}px`; b.style.top = `${by}px`;
     bullets.push({ el: b, x: bx, y: by, v: -bulletSpeed }); // upward
     
-    // guaranteed‑play shooting sound
-    const s = new Audio(shootSoundURL);
-    s.volume = 1.0;
-    s.play().catch(err => console.warn("Shoot sound blocked:", err));
+  SFX.click();
 
   }
 
@@ -520,9 +517,7 @@ function stopSpeaking() {
       wrong, ms: totalMs, date: new Date().toISOString() }));
 
     
-    sndVic.currentTime = 0;  // or a "victory" sound
-    sndVic.play();
-
+   SFX.success();
   }
 
     // --- Letter hot-shoot helper: move under matching ship and fire ---
