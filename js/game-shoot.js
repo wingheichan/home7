@@ -500,20 +500,80 @@ function stopSpeaking() {
     SFX.success();
   }
 
+    // --- Letter hot-shoot helper: move under matching ship and fire ---
+    function jumpUnderShipAndShoot(ch) {
+      if (!running) return false;
+      if (!ch || typeof ch !== 'string') return false;
+    
+      // Normalize and compare case-insensitively (works with ä, ö, ü, ß, etc.)
+      const target = ch.normalize('NFC').toUpperCase();
+    
+      // Only consider ships whose token is a single character
+      const candidates = ships.filter(s => String(s.token).length === 1);
+    
+      if (!candidates.length) return false;
+    
+      // Find all ships that match the pressed letter
+      const matches = candidates.filter(s =>
+        String(s.token).normalize('NFC').toUpperCase() === target
+      );
+    
+      if (!matches.length) return false;
+    
+      // If multiple ships match (rare), pick the one nearest to current playerX
+      const rect = stage.getBoundingClientRect();
+      const playerCenter = playerX + (PLAYER_W / 2);
+    
+      let best = matches[0];
+      let bestDist = Math.abs((best.x + SHIP_W / 2) - playerCenter);
+    
+      for (let i = 1; i < matches.length; i++) {
+        const cand = matches[i];
+        const dist = Math.abs((cand.x + SHIP_W / 2) - playerCenter);
+        if (dist < bestDist) { best = cand; bestDist = dist; }
+      }
+    
+      // Move player so its center is under the ship center, clamp to stage
+      const targetX = Math.round((best.x + (SHIP_W / 2)) - (PLAYER_W / 2));
+      playerX = Math.max(0, Math.min(rect.width - PLAYER_W, targetX));
+      player.style.left = `${playerX}px`;
+    
+      // Fire (respects your COOLDOWN_MS and lastShotAt guard)
+      shoot();
+      return true;
+    }
+  
   // ---- Controls
   function onKey(e) {
-    if (!running) return;
-    const rect = stage.getBoundingClientRect();
-    if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
-      playerX = Math.max(0, playerX - PLAYER_STEP_KEY);
-      player.style.left = `${playerX}px`; e.preventDefault();
-    } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
-      playerX = Math.min(rect.width - PLAYER_W, playerX + PLAYER_STEP_KEY);
-      player.style.left = `${playerX}px`; e.preventDefault();
-    } else if (e.key === ' ' || e.code === 'Space') {
-      shoot(); e.preventDefault();
+  if (!running) return;
+
+  // --- Letter hot-shoot: try this first ---
+  // If a single printable character is pressed, try to shoot by that letter.
+  if (e.key && e.key.length === 1) {
+    const letter = e.key;
+    // Only trigger in letter-rounds OR when all tokens are one-char
+    const inLetterMode = (mode === 'letter-rounds');
+    const allSingleChar = ships.length && ships.every(s => String(s.token).length === 1);
+    if (inLetterMode || allSingleChar) {
+      const didShoot = jumpUnderShipAndShoot(letter);
+      if (didShoot) { e.preventDefault(); return; }
     }
   }
+
+  // --- Existing movement / fire controls ---
+  const rect = stage.getBoundingClientRect();
+
+  if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+    playerX = Math.max(0, playerX - PLAYER_STEP_KEY);
+    player.style.left = `${playerX}px`; e.preventDefault();
+  } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+    playerX = Math.min(rect.width - PLAYER_W, playerX + PLAYER_STEP_KEY);
+    player.style.left = `${playerX}px`; e.preventDefault();
+  } else if (e.key === ' ' || e.code === 'Space') {
+    shoot(); e.preventDefault();
+  }
+}
+  
   document.addEventListener('keydown', onKey);
 
   // Mobile buttons (null-safe)
