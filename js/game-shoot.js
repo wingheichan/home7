@@ -33,6 +33,13 @@
   const PLAYER_STEP_KEY = 14;     // px per left/right key press
   const PLAYER_STEP_TAP = 44;    // px per mobile tap
   const COOLDOWN_MS = 200;       // delay between shots
+  
+  // --- Custom Sound Effects ---
+  const sndShoot  = new Audio('sounds/laser-shoot.mp3');
+  const sndHit    = new Audio('sounds/explosion-fx.mp3');
+  const sndVic    = new Audio('sounds/success-fanfare-trumpets.mp3');
+  //const sndMiss   = new Audio('sounds/hit-miss.mp3');
+  //const sndWrong  = new Audio('sounds/hit-wrong.mp3');  // optional if different
     
   // ---- Game state
   let running = false, rafId = 0;
