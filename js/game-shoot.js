@@ -385,7 +385,13 @@ function stopSpeaking() {
     b.style.left = `${bx}px`; b.style.top = `${by}px`;
     bullets.push({ el: b, x: bx, y: by, v: -bulletSpeed }); // upward
     
-  SFX.click();
+    // --- Reliable SFX shooting sound ---
+    try {
+        // If SFX exposes an audio object, rewind it before playing.
+        if (SFX._clickAudio) SFX._clickAudio.currentTime = 0;
+    } catch (e) {}
+    
+    SFX.click();
 
   }
 
