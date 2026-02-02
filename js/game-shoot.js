@@ -296,7 +296,15 @@ function stopSpeaking() {
       const lang = localStorage.getItem('shoot:tts:lang') || 'en-US';
       speakText(hintEl?.textContent || '', lang);
     }  
+   // --- FIX: Refresh alien ships for the new round ---
+    {
+      // get the current item so buildLineForNeed knows distractors/wordBank
+      const item = (mode === 'letter-rounds')
+        ? (DATA[selCat.value][selSub.value].find(x => x.mode === 'letter-rounds'))
+        : (DATA[selCat.value][selSub.value].find(x => x.mode === 'word'));
     
+      buildLineForNeed(item);
+    }
   }
     
     function nextRoundOrFinish() {
@@ -368,7 +376,10 @@ function stopSpeaking() {
     const by = stage.clientHeight - PLAYER_H - 10; // just above player
     b.style.left = `${bx}px`; b.style.top = `${by}px`;
     bullets.push({ el: b, x: bx, y: by, v: -bulletSpeed }); // upward
-    SFX.click();
+    
+    sndShoot.currentTime = 0;
+    sndShoot.play();
+
   }
 
   // ---- Collision helpers
@@ -389,7 +400,10 @@ function stopSpeaking() {
         cOut.textContent = String(correct);
       }
 
-      SFX.correct();
+      
+      sndHit.currentTime = 0;
+      sndHit.play();
+
     } else {
       wrong++;
       combo = 0;
@@ -497,7 +511,10 @@ function stopSpeaking() {
         : (roundIndex >= (rounds?.length || 0) ? rounds.length : nextIndex)),
       wrong, ms: totalMs, date: new Date().toISOString() }));
 
-    SFX.success();
+    
+    sndVic.currentTime = 0;  // or a "victory" sound
+    sndVic.play();
+
   }
 
     // --- Letter hot-shoot helper: move under matching ship and fire ---
