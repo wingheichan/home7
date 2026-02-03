@@ -4,7 +4,29 @@
 
   // ---- Load data
   const DATA = await (await fetch('data/shoot.json')).json();
-
+  // --- GLOBAL ALPHABET & CONFUSABLES SETUP ---
+  const GLOBAL_ALPHABET =
+    "abcdefghijklmnopqrstuvwxyz".split("");
+  
+  // Vowels all map to each other
+  const VOWELS = "aeiouy".split("");
+  
+  // Global confusable mapping
+  const GLOBAL_CONFUSABLES = {
+    a: VOWELS,
+    e: VOWELS,
+    i: VOWELS,
+    o: VOWELS,
+    u: VOWELS,
+    y: VOWELS,
+  
+    m: "mnru".split(""),
+    n: "mnhu".split(""),
+    s: "scz".split(""),
+    c: "csz".split(""),
+    k: "khx".split("")
+  };
+  
   // ---- DOM helpers
   const $  = s => document.querySelector(s);
   const $$ = (s, r = document) => Array.from((r || document).querySelectorAll(s));
@@ -193,44 +215,47 @@ function stopSpeaking() {
     const tokens = [];
 
     if (mode === 'letter-rounds') {
-        const alphabet   = item.alphabet   || 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const distractor = item.distractors || '';
-        const needStr    = String(need);
-        const needU      = needStr.toUpperCase();
-        const needL      = needStr.toLowerCase();
-      
-        // 1) Build confusable preference set (case-insensitive)
-        const confStr = (item.confusables?.[needL] || '');
-        const conf = confStr.split('')
-          .filter(ch => ch.toUpperCase() !== needU);
-      
-        // 2) Build fallback pool from alphabet + distractors (excluding the need)
-        const fallback = (alphabet + distractor).split('')
-          .filter(ch => ch.toUpperCase() !== needU);
-      
-        // Helper to append unique tokens (case-insensitive de-dup)
-        const seen = new Set([needU]);
-        const addUnique = (arr) => {
-          for (const ch of arr) {
-            const u = ch.toUpperCase();
-            if (!seen.has(u)) {
-              tokens.push(ch);
-              seen.add(u);
-            }
-            if (tokens.length >= rowSize) break;
-          }
-        };
-      
-        // Always include the needed character first
+        const needStr = String(need);
+        const needU = needStr.toUpperCase();
+        const needL = needStr.toLowerCase();
+    
+        // 1) get confusables from global table
+        const conf = GLOBAL_CONFUSABLES[needL] || [];
+    
+        // 2) fallback pool = global alphabet excluding the correct letter
+        const fallback = GLOBAL_ALPHABET.filter(
+            c => c.toUpperCase() !== needU
+        );
+    
+        // 3) ensure the needed letter appears first
         tokens.push(need);
-      
-        // Prefer confusables; then fill from fallback (shuffled)
+    
+        // case‑insensitive unique collector
+        const seen = new Set([needU]);
+    
+        const addUnique = arr => {
+            for (const ch of arr) {
+                const u = ch.toUpperCase();
+                if (!seen.has(u)) {
+                    tokens.push(ch);
+                    seen.add(u);
+                }
+                if (tokens.length >= rowSize) break;
+            }
+        };
+    
+        // first — confusables
         addUnique(conf);
+    
+        // then — fallback randomized
         if (tokens.length < rowSize) {
-          const fb = fallback.slice().sort(() => Math.random() - 0.5);
-          addUnique(fb);
+            addUnique(
+                fallback
+                    .slice()
+                    .sort(() => Math.random() - 0.5)
+            );
         }
-      } else {
+    } else {
         // word mode (unchanged)
         const wr = wordRounds[roundIndex] || {};
         const bank = Array.isArray(wr.wordBank) && wr.wordBank.length
